@@ -9,14 +9,16 @@ public class BaseCharacterClass : MonoBehaviour{
     private string characterGender;
     [SerializeField]
     public int level;
+    private int maxLevel = 10;
     private int strength;
     private bool death;
     public Transform[] waypoints;
     [SerializeField]
-    private float moveSpeed = 5f;
+    public float moveSpeed = 100f;
     [HideInInspector]
     public int waypointIndex = 0;
     public bool moveAllowed = false;
+    public bool wonCombat = false;
 
     public string CharacterClassName
     {
@@ -51,7 +53,6 @@ public class BaseCharacterClass : MonoBehaviour{
     
     private void Start()
     {
-        this.CharacterGender = "Male";
         this.Strength = level;
         this.level = 1;
         transform.position = waypoints[waypointIndex].transform.position;
@@ -63,7 +64,8 @@ public class BaseCharacterClass : MonoBehaviour{
         {
             if (Input.GetKeyDown("space"))
             {
-                this.level += 1;
+                if(this.level < 10)
+                    this.level += 1;
             }
             Move();
         }

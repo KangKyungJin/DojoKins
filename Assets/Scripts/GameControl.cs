@@ -10,6 +10,9 @@ public class GameControl : MonoBehaviour
     public static int player1StartWaypoint = 0;
     public static int player2StartWaypoint = 0;
     public static bool gameOver = false;
+    [SerializeField]
+    List<Message> messageList = new List<Message>();
+    public int maxMessages = 25;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,11 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SendMessageToChat("You pressed the space key!");
+            Debug.Log("Space");
+        }
         if(player1.GetComponent<BaseCharacterClass>().level == 10)
         {
             gameOver = true;
@@ -44,4 +52,20 @@ public class GameControl : MonoBehaviour
             player2.GetComponent<BaseCharacterClass>().moveAllowed = true;
         }
     }
+
+    public void SendMessageToChat(string text)
+    {
+        if(messageList.Count >= maxMessages)
+        {
+            messageList.Remove(messageList[0]);
+        }
+        Message newMessage = new Message();
+        newMessage.text = text;
+        messageList.Add(newMessage);
+    }
+}
+[System.Serializable]
+public class Message
+{
+    public string text;
 }

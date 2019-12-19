@@ -34,15 +34,6 @@ public class Dice : MonoBehaviour
             rend.sprite = diceSides[randomDiceSide];
             yield return new WaitForSeconds(0.05f);
         }
-        GameControl.diceSideThrown = randomDiceSide + 1;
-        if (whosTurn == 1)
-        {
-            GameControl.MovePlayer(1);
-        } else if (whosTurn == -1)
-        {
-            GameControl.MovePlayer(2);
-        }
-        whosTurn *= -1;
         coroutineAllowed = true;
     }
 }
